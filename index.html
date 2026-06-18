@@ -35,16 +35,17 @@
     align-items: center;
     gap: 14px;
   }
+  .header-spacer { width: 58px; flex-shrink: 0; }
   .header-logo {
     width: 58px;
     height: 58px;
     object-fit: contain;
     flex-shrink: 0;
   }
-  .header-text { flex: 1; }
-  .header-text .uni  { font-size: 13px; font-weight: 600; line-height: 1.4; }
-  .header-text .fac  { font-size: 11px; opacity: 0.88; margin-top: 2px; }
-  .header-text .dept { font-size: 11px; opacity: 0.78; margin-top: 1px; }
+  .header-text { flex: 1; text-align: center; }
+  .header-text .uni  { font-size: 13px; font-weight: 700; line-height: 1.4; }
+  .header-text .fac  { font-size: 11px; opacity: 0.88; margin-top: 3px; }
+  .header-text .dept { font-size: 11px; opacity: 0.78; margin-top: 2px; }
 
   /* Body */
   .poster-body {
@@ -124,13 +125,29 @@
   }
   .info-center b { font-weight: 700; }
 
-  /* Commercial note */
+  /* Commercial note box */
   .commercial-note {
     text-align: center;
     font-size: 13px;
     color: #1a3a6e;
     line-height: 1.7;
-    margin: 10px 0 0;
+    margin: 14px 0 0;
+    background: linear-gradient(135deg, #d4e9f7 0%, #bee3f5 100%);
+    border: 1.5px solid #1a527644;
+    border-left: 4px solid #1a5276;
+    border-radius: 8px;
+    padding: 10px 16px;
+    position: relative;
+  }
+  .commercial-note::before {
+    content: "💰 Commercial Importance";
+    display: block;
+    font-weight: 700;
+    font-size: 11.5px;
+    color: #1a5276;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 5px;
   }
 
   /* Underwater bottom scene */
@@ -138,6 +155,12 @@
     display: block;
     line-height: 0;
     margin-top: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .underwater-scene img {
+    width: 100%;
+    display: block;
   }
 
   /* Footer */
@@ -344,105 +367,122 @@ function renderPoster(sp) {
 
         ${sp.commercial ? `<div class="commercial-note">${sp.commercial}</div>` : ""}
 
-        <div class="underwater-scene"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 130" style="display:block;width:100%;max-width:100%;">
+        <div class="underwater-scene"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" style="display:block;width:100%;max-width:100%;">
   <defs>
-    <linearGradient id="seagrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#7ec8e3" stop-opacity="0.0"/>
-      <stop offset="100%" stop-color="#1a5276" stop-opacity="0.85"/>
+    <linearGradient id="seabot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a8d8ea" stop-opacity="0"/>
+      <stop offset="60%" stop-color="#7ec8e3" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#1a5276" stop-opacity="0.9"/>
     </linearGradient>
-    <linearGradient id="sandgrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#c9a96e"/>
-      <stop offset="100%" stop-color="#9e7c48"/>
+    <linearGradient id="sandbot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4b896"/>
+      <stop offset="100%" stop-color="#a0784a"/>
+    </linearGradient>
+    <linearGradient id="wave1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5dade2" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#2e86c1" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="wave2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2e86c1" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#1a5276" stop-opacity="0.1"/>
     </linearGradient>
   </defs>
-  <rect width="520" height="130" fill="url(#seagrad)"/>
-  <!-- wave 1 -->
-  <path d="M0 45 Q65 22 130 45 Q195 68 260 45 Q325 22 390 45 Q455 68 520 45 L520 130 L0 130 Z" fill="#5dade2" opacity="0.15"/>
-  <!-- wave 2 -->
-  <path d="M0 58 Q65 36 130 58 Q195 80 260 58 Q325 36 390 58 Q455 80 520 58 L520 130 L0 130 Z" fill="#2e86c1" opacity="0.18"/>
-  <!-- sand -->
-  <ellipse cx="260" cy="136" rx="290" ry="24" fill="url(#sandgrad)" opacity="0.5"/>
-  <!-- sand ripples -->
-  <path d="M80 124 Q115 120 150 124" stroke="#c9a96e" stroke-width="1" fill="none" opacity="0.4"/>
-  <path d="M220 126 Q260 122 300 126" stroke="#c9a96e" stroke-width="1" fill="none" opacity="0.4"/>
-  <path d="M370 124 Q405 120 440 124" stroke="#c9a96e" stroke-width="1" fill="none" opacity="0.4"/>
 
-  <!-- LEFT seaweed 1 tall -->
-  <path d="M28 130 Q22 108 30 91 Q24 74 32 58 Q26 43 34 28 Q28 16 36 5" stroke="#2e8b57" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M32 58 Q44 52 42 40" stroke="#2e8b57" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M30 91 Q16 85 18 73" stroke="#2e8b57" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M34 28 Q46 22 44 10" stroke="#2e8b57" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- Sky/sea background -->
+  <rect width="520" height="140" fill="url(#seabot)"/>
 
-  <!-- LEFT seaweed 2 -->
-  <path d="M58 130 Q64 110 53 94 Q62 77 51 62 Q60 47 49 32 Q58 18 46 6" stroke="#27ae60" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <path d="M51 62 Q39 56 41 44" stroke="#27ae60" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-  <path d="M53 94 Q68 88 66 76" stroke="#27ae60" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-  <path d="M49 32 Q37 26 39 14" stroke="#27ae60" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Wave layer back -->
+  <path d="M0 55 Q65 30 130 55 Q195 80 260 55 Q325 30 390 55 Q455 80 520 55 L520 140 L0 140 Z"
+        fill="url(#wave1)" opacity="0.9"/>
+  <!-- Wave layer mid -->
+  <path d="M0 72 Q65 50 130 72 Q195 94 260 72 Q325 50 390 72 Q455 94 520 72 L520 140 L0 140 Z"
+        fill="url(#wave2)" opacity="0.85"/>
+  <!-- Wave layer front -->
+  <path d="M0 88 Q65 68 130 88 Q195 108 260 88 Q325 68 390 88 Q455 108 520 88 L520 140 L0 140 Z"
+        fill="#1a5276" opacity="0.35"/>
 
-  <!-- LEFT seaweed 3 short -->
-  <path d="M14 130 Q8 114 16 100 Q10 86 18 74" stroke="#1e8449" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M16 100 Q4 94 6 82" stroke="#1e8449" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Sand bed -->
+  <ellipse cx="260" cy="145" rx="300" ry="26" fill="url(#sandbot)" opacity="0.65"/>
+  <!-- Sand ripples -->
+  <path d="M60 132 Q100 128 140 132" stroke="#c9a96e" stroke-width="1.2" fill="none" opacity="0.5"/>
+  <path d="M200 134 Q250 130 300 134" stroke="#c9a96e" stroke-width="1.2" fill="none" opacity="0.5"/>
+  <path d="M370 132 Q410 128 450 132" stroke="#c9a96e" stroke-width="1.2" fill="none" opacity="0.5"/>
 
-  <!-- LEFT wide coral plant (like poster) -->
-  <path d="M88 130 Q82 110 90 94 Q80 78 92 62" stroke="#148f77" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <path d="M92 62 Q104 52 108 38 Q114 24 106 12" stroke="#148f77" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M92 62 Q78 52 74 38 Q68 24 76 12" stroke="#148f77" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M90 94 Q76 84 72 68" stroke="#148f77" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M90 94 Q104 84 108 68" stroke="#148f77" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- ── SEAWEED LEFT cluster ── -->
+  <!-- sw1 -->
+  <path d="M22 140 Q16 118 24 101 Q18 84 26 68 Q20 53 28 38 Q22 24 30 12" stroke="#1e8449" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+  <path d="M26 68 Q38 62 36 50" stroke="#1e8449" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M24 101 Q10 95 12 82" stroke="#1e8449" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M28 38 Q40 32 38 20" stroke="#1e8449" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- sw2 -->
+  <path d="M52 140 Q58 118 47 102 Q56 85 45 70 Q54 55 43 40 Q52 25 40 12" stroke="#27ae60" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M45 70 Q33 64 35 52" stroke="#27ae60" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M47 102 Q62 96 60 84" stroke="#27ae60" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M43 40 Q31 34 33 22" stroke="#27ae60" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- sw3 short -->
+  <path d="M12 140 Q6 122 14 108 Q8 94 16 80" stroke="#2e8b57" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M14 108 Q2 102 4 90" stroke="#2e8b57" stroke-width="2" fill="none" stroke-linecap="round"/>
 
-  <!-- CENTER-LEFT fan plant -->
-  <path d="M200 130 Q196 108 202 88" stroke="#117a65" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <path d="M202 88 Q190 72 188 52 Q186 36 196 22" stroke="#117a65" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M202 88 Q214 72 216 52 Q218 36 208 22" stroke="#117a65" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M202 88 Q202 70 202 52 Q202 36 202 20" stroke="#117a65" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M196 22 Q202 14 208 22" stroke="#117a65" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- tall plant left -->
+  <path d="M80 140 Q74 118 82 100 Q72 82 84 66" stroke="#148f77" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+  <path d="M84 66 Q96 54 100 38 Q106 22 96 10" stroke="#148f77" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <path d="M84 66 Q70 54 66 38 Q60 22 70 10" stroke="#148f77" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <path d="M82 100 Q68 90 64 74" stroke="#148f77" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M82 100 Q96 90 100 74" stroke="#148f77" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 
-  <!-- CENTER broad leaf plant -->
-  <path d="M290 130 Q286 106 292 86" stroke="#0e6655" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M292 86 Q278 68 280 46 Q282 28 294 14" stroke="#0e6655" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M292 86 Q306 68 304 46 Q302 28 290 14" stroke="#0e6655" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M292 86 Q280 76 272 60" stroke="#0e6655" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M292 86 Q304 76 312 60" stroke="#0e6655" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- ── CENTER PLANTS ── -->
+  <!-- center fan -->
+  <path d="M200 140 Q196 116 202 96" stroke="#0e6655" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M202 96 Q190 78 188 56 Q186 38 196 22" stroke="#0e6655" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <path d="M202 96 Q214 78 216 56 Q218 38 208 22" stroke="#0e6655" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <path d="M202 96 Q202 78 202 56 Q202 38 202 22" stroke="#0e6655" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- center broad -->
+  <path d="M290 140 Q286 114 292 94" stroke="#117a65" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M292 94 Q278 74 280 50 Q282 30 294 14" stroke="#117a65" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <path d="M292 94 Q306 74 304 50 Q302 30 290 14" stroke="#117a65" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <path d="M292 94 Q278 82 270 64" stroke="#117a65" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M292 94 Q306 82 314 64" stroke="#117a65" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 
-  <!-- RIGHT seaweed cluster -->
-  <path d="M390 130 Q384 108 392 91 Q386 74 394 58 Q388 43 396 28 Q390 14 400 4" stroke="#2e8b57" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M394 58 Q406 52 404 40" stroke="#2e8b57" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M392 91 Q378 85 380 73" stroke="#2e8b57" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M396 28 Q408 22 406 10" stroke="#2e8b57" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- ── SEAWEED RIGHT cluster ── -->
+  <path d="M390 140 Q384 118 392 101 Q386 84 394 68 Q388 53 396 38 Q390 24 400 12" stroke="#1e8449" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+  <path d="M394 68 Q406 62 404 50" stroke="#1e8449" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M392 101 Q378 95 380 82" stroke="#1e8449" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M396 38 Q408 32 406 20" stroke="#1e8449" stroke-width="2.2" fill="none" stroke-linecap="round"/>
 
-  <path d="M424 130 Q430 110 419 94 Q428 77 417 62 Q426 47 415 32 Q424 16 412 5" stroke="#27ae60" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <path d="M417 62 Q405 56 407 44" stroke="#27ae60" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-  <path d="M419 94 Q434 88 432 76" stroke="#27ae60" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M422 140 Q428 118 417 102 Q426 85 415 70 Q424 55 413 40 Q422 24 410 12" stroke="#27ae60" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M415 70 Q403 64 405 52" stroke="#27ae60" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M417 102 Q432 96 430 84" stroke="#27ae60" stroke-width="2.2" fill="none" stroke-linecap="round"/>
 
-  <path d="M458 130 Q452 112 460 96 Q454 82 462 68" stroke="#1e8449" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M460 96 Q472 90 470 78" stroke="#1e8449" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M456 140 Q450 122 458 108 Q452 94 460 80" stroke="#2e8b57" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M458 108 Q470 102 468 90" stroke="#2e8b57" stroke-width="2" fill="none" stroke-linecap="round"/>
 
-  <!-- RIGHT wide coral plant -->
-  <path d="M490 130 Q496 110 486 94 Q496 78 484 62" stroke="#148f77" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <path d="M484 62 Q472 52 468 38 Q462 24 472 12" stroke="#148f77" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M484 62 Q496 52 500 38 Q506 24 496 12" stroke="#148f77" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M486 94 Q498 84 502 68" stroke="#148f77" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M486 94 Q472 84 468 68" stroke="#148f77" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- tall plant right -->
+  <path d="M498 140 Q504 118 492 102 Q502 84 490 68" stroke="#148f77" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+  <path d="M490 68 Q478 54 474 38 Q468 22 478 10" stroke="#148f77" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <path d="M490 68 Q502 54 506 38 Q512 22 502 10" stroke="#148f77" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+  <path d="M492 102 Q504 90 508 74" stroke="#148f77" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M492 102 Q478 90 474 74" stroke="#148f77" stroke-width="2.5" fill="none" stroke-linecap="round"/>
 
-  <!-- Small fish silhouettes -->
-  <g transform="translate(148,32) scale(0.85)" opacity="0.38">
-    <path d="M0 0 Q22 -8 40 0 Q22 8 0 0Z" fill="#1a5276"/>
-    <path d="M40 0 L54 -9 L54 9Z" fill="#1a5276"/>
-    <circle cx="6" cy="-1" r="2.2" fill="#7ec8e3" opacity="0.7"/>
+  <!-- Fish silhouettes -->
+  <g transform="translate(152,42) scale(0.9)" opacity="0.35">
+    <ellipse cx="20" cy="0" rx="20" ry="7" fill="#1a5276"/>
+    <polygon points="40,0 54,-8 54,8" fill="#1a5276"/>
+    <circle cx="5" cy="-1" r="2.5" fill="#7ec8e3" opacity="0.7"/>
   </g>
-  <g transform="translate(340,26) scale(-0.8,0.8)" opacity="0.32">
-    <path d="M0 0 Q24 -9 44 0 Q24 9 0 0Z" fill="#1a5276"/>
-    <path d="M44 0 L58 -10 L58 10Z" fill="#1a5276"/>
-    <circle cx="7" cy="-1" r="2.5" fill="#7ec8e3" opacity="0.7"/>
+  <g transform="translate(348,36) scale(-0.85,0.85)" opacity="0.3">
+    <ellipse cx="20" cy="0" rx="20" ry="7" fill="#1a5276"/>
+    <polygon points="40,0 54,-8 54,8" fill="#1a5276"/>
+    <circle cx="5" cy="-1" r="2.5" fill="#7ec8e3" opacity="0.7"/>
   </g>
 
   <!-- Bubbles -->
-  <circle cx="70" cy="38" r="3.5" fill="none" stroke="#ffffff55" stroke-width="1.2"/>
-  <circle cx="76" cy="24" r="2.5" fill="none" stroke="#ffffff45" stroke-width="1"/>
-  <circle cx="250" cy="30" r="3"   fill="none" stroke="#ffffff44" stroke-width="1"/>
-  <circle cx="256" cy="16" r="2"   fill="none" stroke="#ffffff38" stroke-width="0.8"/>
-  <circle cx="440" cy="35" r="3.5" fill="none" stroke="#ffffff50" stroke-width="1.2"/>
-  <circle cx="446" cy="20" r="2.2" fill="none" stroke="#ffffff40" stroke-width="1"/>
+  <circle cx="68" cy="44" r="4"   fill="none" stroke="#ffffff60" stroke-width="1.3"/>
+  <circle cx="74" cy="28" r="2.8" fill="none" stroke="#ffffff50" stroke-width="1"/>
+  <circle cx="80" cy="16" r="1.8" fill="none" stroke="#ffffff40" stroke-width="0.8"/>
+  <circle cx="260" cy="36" r="3.5" fill="none" stroke="#ffffff50" stroke-width="1.1"/>
+  <circle cx="266" cy="20" r="2.2" fill="none" stroke="#ffffff40" stroke-width="0.9"/>
+  <circle cx="448" cy="40" r="4"   fill="none" stroke="#ffffff55" stroke-width="1.3"/>
+  <circle cx="454" cy="24" r="2.5" fill="none" stroke="#ffffff45" stroke-width="1"/>
 </svg></div>
       </div>
       <div class="poster-footer">Fish Museum · WBUAFS &nbsp;|&nbsp; Scan QR to learn about this species</div>
